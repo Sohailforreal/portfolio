@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Shaikh Mohammed Sohail — Designer</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --card: #16161f;
+    --purple: #7c3aed;
+    --purple-light: #a78bfa;
+    --purple-glow: rgba(124, 58, 237, 0.25);
+    --accent: #f0abfc;
+    --text: #f1f0f7;
+    --muted: #8b8a9b;
+    --border: rgba(124, 58, 237, 0.2);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    position: fixed; width: 12px; height: 12px;
+    background: var(--purple-light); border-radius: 50%;
+    pointer-events: none; z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease, width 0.2s, height 0.2s, background 0.2s;
+    mix-blend-mode: screen;
+  }
+  .cursor-ring {
+    position: fixed; width: 36px; height: 36px;
+    border: 1.5px solid var(--purple-light); border-radius: 50%;
+    pointer-events: none; z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: transform 0.12s ease, width 0.3s, height 0.3s, opacity 0.3s;
+    opacity: 0.5;
+  }
+  body:hover .cursor { opacity: 1; }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--purple); border-radius: 4px; }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 20px 60px;
+    display: flex; justify-content: space-between; align-items: center;
+    backdrop-filter: blur(20px);
+    background: rgba(10,10,15,0.7);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px; color: var(--purple-light);
+    letter-spacing: 2px; text-transform: uppercase;
+  }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a {
+    font-size: 13px; color: var(--muted); text-decoration: none;
+    letter-spacing: 1px; text-transform: uppercase;
+    transition: color 0.3s;
+    font-family: 'Space Mono', monospace;
+  }
+  .nav-links a:hover { color: var(--purple-light); }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 120px 60px 80px;
+    position: relative; overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0; z-index: 0;
+    background: radial-gradient(ellipse 70% 60% at 70% 50%, rgba(124,58,237,0.12) 0%, transparent 70%),
+                radial-gradient(ellipse 40% 40% at 20% 80%, rgba(167,139,250,0.06) 0%, transparent 60%);
+  }
+  .hero-grid {
+    position: absolute; inset: 0; z-index: 0; opacity: 0.04;
+    background-image: linear-gradient(var(--purple) 1px, transparent 1px),
+                      linear-gradient(90deg, var(--purple) 1px, transparent 1px);
+    background-size: 80px 80px;
+  }
+  .hero-content { position: relative; z-index: 1; max-width: 900px; }
+  .hero-tag {
+    display: inline-block;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--purple-light); border: 1px solid var(--border);
+    padding: 6px 16px; border-radius: 2px; margin-bottom: 32px;
+    animation: fadeUp 0.8s ease both;
+  }
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(52px, 8vw, 110px);
+    font-weight: 900; line-height: 0.95;
+    letter-spacing: -2px;
+    animation: fadeUp 0.9s 0.1s ease both;
+  }
+  .hero-name span { color: var(--purple-light); font-style: italic; }
+  .hero-title {
+    font-size: 16px; color: var(--muted); margin-top: 28px;
+    max-width: 520px; line-height: 1.7;
+    animation: fadeUp 0.9s 0.2s ease both;
+  }
+  .hero-title strong { color: var(--text); }
+  .hero-cta {
+    display: flex; gap: 16px; margin-top: 44px; flex-wrap: wrap;
+    animation: fadeUp 0.9s 0.3s ease both;
+  }
+  .btn-primary {
+    background: var(--purple); color: #fff;
+    padding: 14px 32px; border-radius: 2px;
+    font-family: 'Space Mono', monospace; font-size: 12px;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    text-decoration: none; cursor: none;
+    transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+    box-shadow: 0 0 0 0 var(--purple-glow);
+  }
+  .btn-primary:hover {
+    background: #6d28d9;
+    box-shadow: 0 0 30px 6px var(--purple-glow);
+    transform: translateY(-2px);
+  }
+  .btn-outline {
+    border: 1px solid var(--border); color: var(--purple-light);
+    padding: 14px 32px; border-radius: 2px;
+    font-family: 'Space Mono', monospace; font-size: 12px;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    text-decoration: none; cursor: none;
+    transition: border-color 0.3s, background 0.3s;
+  }
+  .btn-outline:hover { border-color: var(--purple-light); background: rgba(124,58,237,0.08); }
+
+  .hero-scroll {
+    position: absolute; bottom: 40px; left: 60px;
+    font-family: 'Space Mono', monospace; font-size: 10px;
+    color: var(--muted); letter-spacing: 3px; text-transform: uppercase;
+    display: flex; align-items: center; gap: 12px;
+    animation: fadeUp 1s 0.6s ease both;
+  }
+  .hero-scroll::before {
+    content: ''; display: block; width: 40px; height: 1px;
+    background: var(--purple); animation: widthPulse 2s infinite;
+  }
+
+  /* ─── SECTION COMMONS ─── */
+  section { padding: 100px 60px; }
+  .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--purple-light); margin-bottom: 16px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .section-label::after {
+    content: ''; flex: 1; max-width: 60px; height: 1px;
+    background: var(--purple);
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 4vw, 54px);
+    font-weight: 700; line-height: 1.1;
+    margin-bottom: 60px;
+  }
+  .section-title em { color: var(--purple-light); font-style: italic; }
+
+  /* ─── ABOUT ─── */
+  #about { background: var(--surface); }
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+    align-items: center;
+  }
+  .about-quote {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(22px, 2.5vw, 32px);
+    line-height: 1.5; color: var(--text);
+    border-left: 3px solid var(--purple);
+    padding-left: 28px;
+  }
+  .about-quote span { color: var(--purple-light); }
+  .about-details { display: flex; flex-direction: column; gap: 24px; }
+  .about-detail-item { display: flex; flex-direction: column; gap: 4px; }
+  .detail-label {
+    font-family: 'Space Mono', monospace; font-size: 10px;
+    letter-spacing: 3px; text-transform: uppercase; color: var(--muted);
+  }
+  .detail-value { font-size: 15px; color: var(--text); }
+  .detail-value a { color: var(--purple-light); text-decoration: none; }
+  .skills-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .chip {
+    background: rgba(124,58,237,0.12); border: 1px solid var(--border);
+    color: var(--purple-light); padding: 5px 14px; border-radius: 2px;
+    font-family: 'Space Mono', monospace; font-size: 11px;
+    letter-spacing: 1px;
+  }
+
+  /* ─── WORK ─── */
+  #work { background: var(--bg); }
+  .work-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2px;
+  }
+  .work-card {
+    background: var(--card);
+    padding: 40px; position: relative; overflow: hidden;
+    transition: background 0.3s;
+    cursor: none;
+  }
+  .work-card::before {
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 3px; height: 0; background: var(--purple);
+    transition: height 0.4s ease;
+  }
+  .work-card:hover::before { height: 100%; }
+  .work-card:hover { background: #1a1a25; }
+  .work-card-num {
+    font-family: 'Space Mono', monospace; font-size: 11px;
+    color: var(--purple); letter-spacing: 2px; margin-bottom: 20px;
+  }
+  .work-card-role {
+    font-family: 'Playfair Display', serif; font-size: 22px;
+    font-weight: 700; margin-bottom: 6px; line-height: 1.2;
+  }
+  .work-card-company {
+    font-size: 12px; color: var(--purple-light);
+    font-family: 'Space Mono', monospace; letter-spacing: 1px;
+    margin-bottom: 20px;
+  }
+  .work-card-desc { font-size: 14px; color: var(--muted); line-height: 1.7; }
+  .work-badge {
+    display: inline-block; margin-top: 16px;
+    background: rgba(124,58,237,0.1); border: 1px solid var(--border);
+    color: var(--muted); padding: 4px 10px; border-radius: 2px;
+    font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 1px;
+  }
+
+  /* ─── PORTFOLIO ─── */
+  #portfolio { background: var(--surface); }
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-auto-rows: 220px;
+    gap: 12px;
+  }
+  .port-item {
+    border-radius: 2px; overflow: hidden; position: relative;
+    cursor: none; transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .port-item:hover { transform: scale(1.015); box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+  .port-item:nth-child(1) { grid-column: span 7; grid-row: span 2; }
+  .port-item:nth-child(2) { grid-column: span 5; }
+  .port-item:nth-child(3) { grid-column: span 5; }
+  .port-item:nth-child(4) { grid-column: span 4; }
+  .port-item:nth-child(5) { grid-column: span 4; }
+  .port-item:nth-child(6) { grid-column: span 4; }
+  .port-bg {
+    position: absolute; inset: 0; display: flex;
+    align-items: flex-end; padding: 28px;
+  }
+  .port-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 60%);
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .port-item:hover .port-overlay { opacity: 1; }
+  .port-info { position: relative; z-index: 1; opacity: 0; transform: translateY(10px); transition: all 0.3s; }
+  .port-item:hover .port-info { opacity: 1; transform: translateY(0); }
+  .port-title { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; }
+  .port-tag {
+    font-family: 'Space Mono', monospace; font-size: 10px;
+    color: var(--purple-light); letter-spacing: 2px; text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  /* Portfolio card visuals */
+  .pc1 { background: linear-gradient(135deg, #1e0a3c 0%, #3b0764 40%, #1a0533 100%); }
+  .pc2 { background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); }
+  .pc3 { background: linear-gradient(135deg, #0d0d0d 0%, #1a0a1e 100%); }
+  .pc4 { background: linear-gradient(135deg, #064e3b 0%, #0f3d2e 100%); }
+  .pc5 { background: linear-gradient(135deg, #1c1917 0%, #292524 100%); }
+  .pc6 { background: linear-gradient(135deg, #172554 0%, #1e3a5f 100%); }
+
+  .port-visual {
+    position: absolute; inset: 0; display: flex;
+    align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(40px, 5vw, 80px); font-weight: 900;
+    opacity: 0.15; letter-spacing: -3px;
+    text-align: center; padding: 20px;
+    line-height: 1; color: #fff;
+  }
+
+  /* ─── EDUCATION ─── */
+  #education { background: var(--bg); }
+  .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+  .edu-col-title {
+    font-family: 'Space Mono', monospace; font-size: 10px;
+    letter-spacing: 3px; text-transform: uppercase; color: var(--purple);
+    margin-bottom: 28px;
+  }
+  .edu-item {
+    border: 1px solid var(--border); padding: 28px;
+    border-radius: 2px; margin-bottom: 16px;
+    transition: border-color 0.3s, background 0.3s;
+  }
+  .edu-item:hover { border-color: var(--purple); background: rgba(124,58,237,0.05); }
+  .edu-degree {
+    font-family: 'Playfair Display', serif; font-size: 18px;
+    font-weight: 700; margin-bottom: 4px;
+  }
+  .edu-school { font-size: 13px; color: var(--purple-light); margin-bottom: 8px; }
+  .edu-year {
+    font-family: 'Space Mono', monospace; font-size: 10px;
+    color: var(--muted); letter-spacing: 2px;
+  }
+  .edu-note { font-size: 13px; color: var(--muted); margin-top: 8px; line-height: 1.5; }
+
+  /* ─── CONTACT ─── */
+  #contact {
+    background: var(--surface);
+    text-align: center; padding: 100px 60px 120px;
+  }
+  .contact-email {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(22px, 3.5vw, 42px); font-weight: 700;
+    color: var(--purple-light); text-decoration: none;
+    display: inline-block; margin: 24px 0;
+    transition: color 0.3s;
+  }
+  .contact-email:hover { color: var(--accent); }
+  .contact-meta {
+    display: flex; justify-content: center; gap: 40px; flex-wrap: wrap;
+    margin-top: 40px;
+  }
+  .contact-item { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .contact-item-label {
+    font-family: 'Space Mono', monospace; font-size: 9px;
+    letter-spacing: 3px; text-transform: uppercase; color: var(--muted);
+  }
+  .contact-item-val { font-size: 14px; color: var(--text); }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--bg); padding: 30px 60px;
+    display: flex; justify-content: space-between; align-items: center;
+    border-top: 1px solid var(--border);
+  }
+  footer span {
+    font-family: 'Space Mono', monospace; font-size: 10px;
+    color: var(--muted); letter-spacing: 2px;
+  }
+  .footer-ig {
+    font-family: 'Space Mono', monospace; font-size: 10px;
+    color: var(--purple-light); letter-spacing: 2px; text-decoration: none;
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes widthPulse {
+    0%, 100% { width: 40px; opacity: 1; }
+    50% { width: 20px; opacity: 0.4; }
+  }
+
+  .reveal {
+    opacity: 0; transform: translateY(40px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ─── MOBILE ─── */
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    section { padding: 70px 24px; }
+    .hero { padding: 100px 24px 60px; }
+    .hero-scroll { left: 24px; }
+    .about-grid, .edu-grid { grid-template-columns: 1fr; gap: 40px; }
+    .portfolio-grid {
+      grid-template-columns: 1fr 1fr;
+      grid-auto-rows: 160px;
+    }
+    .port-item:nth-child(1) { grid-column: span 2; grid-row: span 1; }
+    .port-item:nth-child(n) { grid-column: span 1; }
+    footer { flex-direction: column; gap: 12px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">SMS / Design</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Graphic Designer · Visual Storyteller</div>
+    <h1 class="hero-name">Shaikh<br/><span>Mohammed</span><br/>Sohail</h1>
+    <p class="hero-title">
+      <strong>Good design starts with asking the right questions.</strong>
+      My focus is solving real problems and creating work that's meaningful — not just beautiful.
+    </p>
+    <div class="hero-cta">
+      <a href="#portfolio" class="btn-primary">View My Work</a>
+      <a href="#contact" class="btn-outline">Get in Touch</a>
+    </div>
+  </div>
+  <div class="hero-scroll">Scroll to explore</div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">About me</div>
+  <div class="about-grid">
+    <div>
+      <blockquote class="about-quote reveal">
+        "I believe good design starts with asking the <span>right questions</span>, not just jumping into visual."
+      </blockquote>
+    </div>
+    <div class="about-details reveal">
+      <div class="about-detail-item">
+        <span class="detail-label">Location</span>
+        <span class="detail-value">Mira Road (E), Mumbai</span>
+      </div>
+      <div class="about-detail-item">
+        <span class="detail-label">Email</span>
+        <span class="detail-value"><a href="mailto:smsohail027@gmail.com">smsohail027@gmail.com</a></span>
+      </div>
+      <div class="about-detail-item">
+        <span class="detail-label">Phone</span>
+        <span class="detail-value">72082 82846</span>
+      </div>
+      <div class="about-detail-item">
+        <span class="detail-label">Tools & Skills</span>
+        <div class="skills-chips">
+          <span class="chip">Canva</span>
+          <span class="chip">Photopea</span>
+          <span class="chip">Figma</span>
+          <span class="chip">Brand Identity</span>
+          <span class="chip">Social Media</span>
+          <span class="chip">Print Design</span>
+          <span class="chip">Thumbnails</span>
+          <span class="chip">Merch Design</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK EXPERIENCE -->
+<section id="work">
+  <div class="section-label">Experience</div>
+  <h2 class="section-title reveal">Work that <em>matters</em></h2>
+  <div class="work-grid">
+
+    <div class="work-card reveal">
+      <div class="work-card-num">01</div>
+      <div class="work-card-role">Graphic Designer</div>
+      <div class="work-card-company">Global Pest &amp; Termite Solutions, LLC · Remote</div>
+      <p class="work-card-desc">Designed professional invoices, promotional flyers, business cards and marketing materials tailored to pest control services. Developed seasonal campaigns including a standout Eid Mubarak promotional post.</p>
+      <span class="work-badge">Freelance</span>
+    </div>
+
+    <div class="work-card reveal">
+      <div class="work-card-num">02</div>
+      <div class="work-card-role">YouTube Thumbnail Designer</div>
+      <div class="work-card-company">Anaf Khan Vlogs · Remote</div>
+      <p class="work-card-desc">Designed eye-catching thumbnails for multiple videos, enhancing visual appeal and driving viewer engagement through bold typography and high-contrast compositions.</p>
+      <span class="work-badge">Freelance</span>
+    </div>
+
+    <div class="work-card reveal">
+      <div class="work-card-num">03</div>
+      <div class="work-card-role">Creative Designer — Event Promotions</div>
+      <div class="work-card-company">Theem College of Engineering · Ongoing</div>
+      <p class="work-card-desc">Designed the full promotional suite for Jashn-E-Theem 2K25 — including concert posters and VIP passes for the Salman Ali Night Music Concert. Also handles posters, banners and flyers across college events.</p>
+      <span class="work-badge">Ongoing</span>
+    </div>
+
+    <div class="work-card reveal">
+      <div class="work-card-num">04</div>
+      <div class="work-card-role">Social Media Manager &amp; Designer</div>
+      <div class="work-card-company">@jashn_e_theem · Instagram · Ongoing</div>
+      <p class="work-card-desc">Manages content creation and scheduling for the official college fest Instagram handle — maintaining a consistent, visually cohesive identity across all posts.</p>
+      <span class="work-badge">Ongoing</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio">
+  <div class="section-label">Selected Work</div>
+  <h2 class="section-title reveal">Projects &amp; <em>Designs</em></h2>
+  <div class="portfolio-grid">
+
+    <div class="port-item pc1 reveal">
+      <div class="port-visual">JASHN<br/>E<br/>THEEM</div>
+      <div class="port-overlay"></div>
+      <div class="port-bg">
+        <div class="port-info">
+          <div class="port-title">Salman Ali Concert Poster &amp; VIP Passes</div>
+          <div class="port-tag">Event Design · Print</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="port-item pc2 reveal">
+      <div class="port-visual">YT</div>
+      <div class="port-overlay"></div>
+      <div class="port-bg">
+        <div class="port-info">
+          <div class="port-title">YouTube Thumbnail Designs</div>
+          <div class="port-tag">Digital · Content</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="port-item pc3 reveal">
+      <div class="port-visual">HOODIE</div>
+      <div class="port-overlay"></div>
+      <div class="port-bg">
+        <div class="port-info">
+          <div class="port-title">Hoodie Design &amp; Mockup</div>
+          <div class="port-tag">Merch · Apparel Design</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="port-item pc4 reveal">
+      <div class="port-visual">STAMP</div>
+      <div class="port-overlay"></div>
+      <div class="port-bg">
+        <div class="port-info">
+          <div class="port-title">Stamp Designs — Under 25 App</div>
+          <div class="port-tag">Paid Mission · Illustration</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="port-item pc5 reveal">
+      <div class="port-visual">EID<br/>MUBARAK</div>
+      <div class="port-overlay"></div>
+      <div class="port-bg">
+        <div class="port-info">
+          <div class="port-title">Eid Campaign — Global Pest Solutions</div>
+          <div class="port-tag">Brand · Social Media</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="port-item pc6 reveal">
+      <div class="port-visual">TEAM<br/>INDIA</div>
+      <div class="port-overlay"></div>
+      <div class="port-bg">
+        <div class="port-info">
+          <div class="port-title">Hardik Pandya — Cricket Card</div>
+          <div class="port-tag">Sports · Fan Art</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-label">Education</div>
+  <h2 class="section-title reveal"><em>Learning</em> never stops</h2>
+  <div class="edu-grid">
+    <div class="reveal">
+      <div class="edu-col-title">Academic</div>
+      <div class="edu-item">
+        <div class="edu-degree">B.E — Information Technology</div>
+        <div class="edu-school">Theem College of Engineering, Boisar</div>
+        <div class="edu-year">Currently Pursuing · Major: Data Science</div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-degree">HSC</div>
+        <div class="edu-school">RD &amp; SH National College, Bandra</div>
+        <div class="edu-year">February 2022</div>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="edu-col-title">Certifications</div>
+      <div class="edu-item">
+        <div class="edu-degree">The Language of Design</div>
+        <div class="edu-school">California Institute of Arts · Coursera</div>
+        <div class="edu-year">Product Design</div>
+        <div class="edu-note">Achieved Academic Excellence in Product Design.</div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-degree">Meta Front-End Developer</div>
+        <div class="edu-school">Meta · Coursera</div>
+        <div class="edu-year">Frontend Development &amp; UI Studies</div>
+        <div class="edu-note">Covered frontend development fundamentals and user interface design principles.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label" style="justify-content:center">Contact</div>
+  <h2 class="section-title reveal" style="margin-bottom:8px">Let's build something<br/><em>remarkable</em></h2>
+  <p style="color:var(--muted);font-size:14px;margin-bottom:8px">Have a project in mind? Let's talk.</p>
+  <a href="mailto:smsohail027@gmail.com" class="contact-email reveal">smsohail027@gmail.com</a>
+  <div class="contact-meta reveal">
+    <div class="contact-item">
+      <span class="contact-item-label">Phone</span>
+      <span class="contact-item-val">72082 82846</span>
+    </div>
+    <div class="contact-item">
+      <span class="contact-item-label">Location</span>
+      <span class="contact-item-val">Mira Road (E), Mumbai</span>
+    </div>
+    <div class="contact-item">
+      <span class="contact-item-label">Instagram</span>
+      <span class="contact-item-val">@jashn_e_theem</span>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2025 Shaikh Mohammed Sohail</span>
+  <span>Designed &amp; Built with intent.</span>
+  <a href="https://instagram.com/jashn_e_theem" class="footer-ig" target="_blank">@jashn_e_theem</a>
+</footer>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px';
+    cursor.style.top = my + 'px';
+  });
+
+  function animRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(animRing);
+  }
+  animRing();
+
+  document.querySelectorAll('a, button, .work-card, .port-item').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.width = '20px'; cursor.style.height = '20px';
+      ring.style.width = '60px'; ring.style.height = '60px';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.width = '12px'; cursor.style.height = '12px';
+      ring.style.width = '36px'; ring.style.height = '36px';
+    });
+  });
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(r => observer.observe(r));
+</script>
+</body>
+</html>
